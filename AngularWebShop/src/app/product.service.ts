@@ -17,13 +17,18 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    const url = this.baseUrl + 'products';
+    const url = this.baseUrl + 'product-list';
     return this.http.get<Product[]>(url);
 }
 
   getProduct(slug: string): Observable<Product> {
-    const url = this.baseUrl + 'products' + slug;
+    const url = this.baseUrl + 'product-detail/' + slug;
     return this.http.get<Product>(url);
+  }
+
+  getProductsByCategory(Category: string): Observable<Product[]> {
+    const url = this.baseUrl + 'product-list/' + Category;
+    return this.http.get<Product[]>(url);
   }
 
 }
