@@ -17,14 +17,13 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    // TODO: change url
     const url = this.baseUrl + 'products';
     return this.http.get<Product[]>(url);
 }
 
   getProduct(slug: string): Observable<Product> {
-    //TODO change url
-    const url = this.baseUrl + 'products'
+    const url = this.baseUrl + 'products' + slug;
+    return this.http.get<Product>(url);
   }
 
 }
