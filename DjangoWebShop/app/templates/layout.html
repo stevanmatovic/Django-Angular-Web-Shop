@@ -1,0 +1,63 @@
+﻿
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    {% load staticfiles %}
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'content/bootstrap.min.css' %}" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'content/site.css' %}" />
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Application Name</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+          </li>
+        </ul>
+        {% include 'loginpartial.html' %}
+      </div>
+    </nav>
+
+    <main role="main">
+        <div class="container body-content">
+            <p></p>
+            {% block content %} {% endblock %}
+        </div> <!-- /container -->
+    </main>
+
+    <footer>
+        <hr />
+        <p>&copy; {{ year }} - My Django Application</p>
+    </footer>
+
+    <!-- JQuery and Bootstrap core
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'scripts/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'scripts/popper.min.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
+
+  </body>
+</html>
