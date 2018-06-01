@@ -11,7 +11,7 @@
 <div id="main" class="product-list">
   <div *ngFor="let product of products" class="item">
     <a href="#">
-      <img src="{{product.image}}">
+      <img src="http://localhost:8000/{{product.image}}">
     </a>
     <a href="#">{{ product.name }}</a><br>
     ${{ product.price }}
