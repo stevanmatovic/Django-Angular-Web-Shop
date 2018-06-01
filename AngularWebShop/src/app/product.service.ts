@@ -11,7 +11,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProductService {
-  // TODO: we should change the urls from Django Web Services
   private baseUrl = 'http://localhost:8000/ws/';
 
   constructor(private http: HttpClient) { }
