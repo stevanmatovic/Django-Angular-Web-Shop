@@ -2,8 +2,10 @@
 
 <nav>
   <a routerLink="">Home</a>
-  <a routerLink="/product-list">All products</a>
-  <a *ngFor="let category of categories" routerLink="/{{category.slug}}">{{category.name}}</a>
+  <a *ngFor="let category of categories"
+     [routerLink]="['/category', category.slug]">
+    {{ category.name }}
+  </a>
 </nav>
 
 <router-outlet></router-outlet>
