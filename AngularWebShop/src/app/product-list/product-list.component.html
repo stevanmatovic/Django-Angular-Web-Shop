@@ -1,9 +1,9 @@
 <div id="main" class="product-list">
   <div *ngFor="let product of products" class="item">
-    <a href="#">
+    <a routerLink="/product/{{product.slug}}">
       <img src="http://localhost:8000{{product.image}}">
     </a>
-    <a href="#">{{ product.name }}</a><br>
+    <a routerLink="/product/{{product.slug}}">{{ product.name }}</a><br>
     ${{ product.price }}
   </div>
 </div>

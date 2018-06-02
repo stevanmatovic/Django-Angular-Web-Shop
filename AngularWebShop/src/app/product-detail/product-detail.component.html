@@ -1,0 +1,13 @@
+
+<div class="product-detail">
+  <img src="{{ product.image }}">
+  <h1>{{ product.name }}</h1>
+  <h2><a href="/category/{{ product.category.slug }}">{{ product.category }}</a></h2>
+  <p class="price">${{ product.price }}</p>
+  <!--<form action="{% url "cart:cart_add" product.id %}" method="post">-->
+  <!--{{ cart_product_form }}-->
+  <!--{% csrf_token %}-->
+  <!--<input type="submit" value="Add to cart">-->
+  <!--</form>-->
+  {{ product.description }}
+</div>
