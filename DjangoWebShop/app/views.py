@@ -32,6 +32,13 @@ def products_in_category_ws(request,name):
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def categories_ws(request):
+    categories = Category.objects.all();
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
 @api_view(['GET'])
 def product_detail_ws(request, slug):
     try:

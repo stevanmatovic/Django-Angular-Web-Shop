@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from './product';
 import {Observable} from 'rxjs/internal/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Category} from './category';
 
 const httpOptions = {
   headers : new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,13 +21,19 @@ export class ProductService {
     return this.http.get<Product[]>(url);
 }
 
+  getCategories(): Observable<Category[]> {
+    const url = this.baseUrl + 'categories';
+    return this.http.get<Category[]>(url);
+  }
+
+
   getProduct(slug: string): Observable<Product> {
     const url = this.baseUrl + 'product-detail/' + slug;
     return this.http.get<Product>(url);
   }
 
-  getProductsByCategory(Category: string): Observable<Product[]> {
-    const url = this.baseUrl + 'product-list/' + Category;
+  getProductsByCategory(category: string): Observable<Product[]> {
+    const url = this.baseUrl + 'product-list/' + category;
     return this.http.get<Product[]>(url);
   }
 

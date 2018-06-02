@@ -34,6 +34,7 @@ urlpatterns = [
     path('ws/product-list',views.product_list_ws),
     path('ws/product-list/<slug:name>',views.products_in_category_ws),
     path('ws/product-detail/<slug:slug>',views.product_detail_ws),
+    path('ws/categories',views.categories_ws),
 
 ]
 
