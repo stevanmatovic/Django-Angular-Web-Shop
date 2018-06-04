@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../product.service';
 import {Product} from '../product';
+import {FormsModule} from '@angular/forms';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -17,6 +19,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService, private route: ActivatedRoute) {
   }
 
+  submitProduct(quantity: number): void {
+    this.productService.addProduct(this.slug, quantity);
+
+  }
+
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -25,7 +32,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       this.getProduct(this.slug);
 
     });
-
   }
 
   getProduct(slug: string): void {
@@ -35,5 +41,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
 
 }
