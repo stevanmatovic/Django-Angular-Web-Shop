@@ -32,6 +32,24 @@ export class ProductService {
     return this.http.get<Product>(url);
   }
 
+
+  addProduct(slug: string, quantity: number): void {
+    const url = this.baseUrl + 'add-product/' + slug;
+    this.http.post(url, {
+      slug: slug,
+      quantity: quantity
+    })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log('Error occured');
+        }
+      );
+  }
+
+
   getProductsByCategory(category: string): Observable<Product[]> {
     const url = this.baseUrl + 'product-list/' + category;
     return this.http.get<Product[]>(url);
