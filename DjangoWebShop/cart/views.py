@@ -1,10 +1,14 @@
-from django.http import HttpResponseRedirect
+from argparse import _AppendAction
+
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import json
 
 from app.models import Product
+from app.serializers import ProductSerializer
 from .cart import Cart
 from .forms import CartAddProductForm
 
@@ -12,27 +16,41 @@ from .forms import CartAddProductForm
 @api_view(['GET'])
 def cart_detail_ws(request):
     cart = Cart(request)
-    return Response()
+    list = [];
+    quantities = [];
+    for key, value in cart.cart.items():
+        data = {}
+        p = get_object_or_404(Product, id=key)
+        serializers = ProductSerializer(p);
+        q = value['quantity']
+        totalPrice = float(serializers.data['price']) * q;
+        data['product'] = serializers.data;
+        data['quantity'] = q;
+        data['totalPrice'] = round(totalPrice,2);
+        list.append(data)
+    return Response(list)
 
 @api_view(['DELETE'])
-def cart_remove_ws(request,product_id):
+def cart_remove_ws(request,slug):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, slug= slug)
     cart.remove(product)
     return Response()
 
 @api_view(['POST'])
-def cart_add_ws(request,product_id):
+def cart_add_ws(request):
+    print('usao');
+    body = json.loads(request.body)
+    quantity = body['quantity']
+    slug = body['slug']
     cart = Cart(request)
-    product = get_object_or_404(Product,id=product_id)
-    form = CartAddProductForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        cart.add(product=product,
-                 quantity=cd['quantity'],
-                 update_quantity=cd['update'])
+    product = get_object_or_404(Product,slug=slug)
 
-    return HttpResponseRedirect(redirect_to='http://localhost:4200/cart');
+    cart.add(product=product,
+                 quantity=int(quantity),
+                 update_quantity=False)
+
+    return Response('');
 
 
 @require_POST

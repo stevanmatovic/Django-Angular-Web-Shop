@@ -1,7 +1,19 @@
-<h1>{{ title }}</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<nav class="navbar">
+    <a class="navbar-link" routerLink="/">Web Shop    </a>
+    <a class="nav-link" *ngIf="!user" routerLink="/login">  Login</a>
+    <a class="nav-link" *ngIf="!user" routerLink="/register">  Register</a>
+    <a class="nav-link"  *ngIf="user" (click)="logout()"> Logout</a>
+    <div *ngIf="user">
+        <p>Logged in as: {{ user }}</p>
+    </div>
+</nav>
+<div class="containter">
+
+<a routerLink="/cart">Your cart</a>
+<h3>Categories:</h3>
 <nav>
-  <a routerLink="">Home</a>
   <a *ngFor="let category of categories"
      [routerLink]="['/category', category.slug]">
     {{ category.name }}
@@ -9,3 +21,4 @@
 </nav>
 
 <router-outlet></router-outlet>
+</div>

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../product.service';
 import {Product} from '../product';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 
 
 @Component({
@@ -19,16 +19,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService, private route: ActivatedRoute) {
   }
 
-  submitProduct(quantity: number): void {
-    this.productService.addProduct(this.slug, quantity);
-
+  submitProduct( f: NgForm): void {
+    this.productService.addProduct(this.slug, f.value.quantity);
+      // .subscribe((response) => {
+      //     console.log(response);
+      //   });
   }
-
-
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.slug = params['slug'];
-
+      console.log('usao u konstruktor')
       this.getProduct(this.slug);
 
     });

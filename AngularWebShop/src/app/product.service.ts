@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
 import {Observable} from 'rxjs/internal/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest,} from '@angular/common/http';
 import {Category} from './category';
+import {Router} from '@angular/router';
 
 const httpOptions = {
   headers : new HttpHeaders({'Content-Type': 'application/json'})
@@ -12,46 +13,48 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:8000/ws/';
+  private baseUrl = 'http://localhost:8000/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {
+
+  }
 
   getProducts(): Observable<Product[]> {
-    const url = this.baseUrl + 'product-list';
+    const url = this.baseUrl + 'ws/product-list';
     return this.http.get<Product[]>(url);
 }
 
   getCategories(): Observable<Category[]> {
-    const url = this.baseUrl + 'categories';
+    const url = this.baseUrl + 'ws/categories';
     return this.http.get<Category[]>(url);
   }
 
 
   getProduct(slug: string): Observable<Product> {
-    const url = this.baseUrl + 'product-detail/' + slug;
+    const url = this.baseUrl + 'ws/product-detail/' + slug;
     return this.http.get<Product>(url);
   }
 
 
-  addProduct(slug: string, quantity: number): void {
-    const url = this.baseUrl + 'add-product/' + slug;
-    this.http.post(url, {
-      slug: slug,
-      quantity: quantity
-    })
+  addProduct(slug: string, quantity: number) {
+
+    const url = this.baseUrl + 'cart/ws/add-product';
+    // return this.http.post(url , quantity);
+
+    return this.http.post(url, {
+      quantity: quantity,
+      slug : slug
+    }, { withCredentials: true })
       .subscribe(
         res => {
-          console.log(res);
-        },
-        err => {
-          console.log('Error occured');
+          //ter.navigate(['/']);
         }
       );
   }
 
 
   getProductsByCategory(category: string): Observable<Product[]> {
-    const url = this.baseUrl + 'product-list/' + category;
+    const url = this.baseUrl + 'ws/product-list/' + category;
     return this.http.get<Product[]>(url);
   }
 

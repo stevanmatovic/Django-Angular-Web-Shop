@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -7,6 +8,6 @@ urlpatterns = [
     url(r'^add/(?P<product_id>\d+)$',views.cart_add,name='cart_add'),
     url(r'^remove/(?P<product_id>\d+)$',views.cart_remove,name='cart_remove'),
     url('ws/cart-detail',views.cart_detail_ws,name='cart_detail'),
-    url('ws/add-product/<product_id>',views.cart_add_ws,name='cart_add'),
-    url('ws/remove/<product_id>',views.cart_remove_ws,name='cart_remove'),
+    path('ws/add-product',views.cart_add_ws,name='cart_add'),
+    path('ws/remove/<slug>',views.cart_remove_ws,name='cart_remove'),
 ]

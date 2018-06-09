@@ -9,6 +9,9 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './login/login.component';
 import { QuantityFormComponent } from './quantity-form/quantity-form.component';
+import { CartDetailComponent } from './cart-detail/cart-detail.component';
+import { RegisterComponent } from './register/register.component';
+import { ThanksComponent } from './thanks/thanks.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { QuantityFormComponent } from './quantity-form/quantity-form.component';
     ProductListComponent,
     ProductDetailComponent,
     LoginComponent,
-    QuantityFormComponent
+    QuantityFormComponent,
+    CartDetailComponent,
+    RegisterComponent,
+    ThanksComponent
   ],
   imports: [
     BrowserModule,

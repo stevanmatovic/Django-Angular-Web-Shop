@@ -1,9 +1,15 @@
+import json
+
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, HttpResponse
 from datetime import datetime
+
+from django.views.decorators.csrf import csrf_protect
+
 from .models import Category, Product
 from cart.forms import CartAddProductForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 
 #rest imports
@@ -19,6 +25,22 @@ def product_list_ws(request):
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
+@api_view(['POST'])
+def register_ws(request):
+    body = json.loads(request.body)
+    user = User.objects.create_user(username=body['username'], password=body['password'])
+    user.save()
+    login(request, user)
+    return Response(user.username)
+
+@csrf_protect
+@api_view(['POST'])
+def login_ws(request):
+    body = json.loads(request.body)
+    user = authenticate(username=body['username'], password=body['password'])
+    login(request, user)
+    return Response(user.username)
+
 
 @api_view(['GET'])
 def products_in_category_ws(request,name):
@@ -30,6 +52,12 @@ def products_in_category_ws(request,name):
 
     products = products.filter(category=category)
     serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def username_ws(request):
+    categories = Category.objects.all();
+    serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
 

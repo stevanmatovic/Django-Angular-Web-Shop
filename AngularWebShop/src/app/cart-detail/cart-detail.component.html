@@ -1,0 +1,50 @@
+<div class="container">
+<h1>Your shopping cart</h1>
+<table class="cart">
+  <thead>
+  <tr>
+    <th>Image</th>
+    <th>Product</th>
+    <th>Remove</th>
+    <th>Quantity</th>
+    <th>Unit price</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let item of items" class="item">
+    <td>
+      <a href="{{ item?.product.slug }}">
+        <img src="{{ item.product.image }}">
+      </a>
+    </td>
+    <td>{{ item?.product.name }}</td>
+    <td ><button (click)="remove(item.product.slug)">Remove</button></td>
+    <td>
+      {{item?.quantity}}
+    </td>
+    <!--<td><a href="{% url "cart:cart_remove" product.id %}">Remove</a></td>-->
+    <td align="center">${{ item?.product.price }}</td>
+    <td align="center">${{ item?.totalPrice }}</td>
+  </tr>
+  <tr class="total">
+    <td>Total</td>
+    <td colspan="4"></td>
+    <td class="num">${{ finalPrice }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div>
+
+  <a *ngIf="user" href = "/thanks" class="button" routerLink="/thanks" style="float: right">Buy</a>
+
+
+</div>
+
+<p class="text-right">
+  <a href = "/" class="button light">Continue shopping</a>
+</p>
+
+</div>

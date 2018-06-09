@@ -1,5 +1,5 @@
 from audioop import max
-
+import json
 from django.db import models
 from django.urls import reverse
 
@@ -44,3 +44,6 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('app:product_detail', args=[self.id, self.slug])
 
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)

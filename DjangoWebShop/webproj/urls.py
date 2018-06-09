@@ -35,6 +35,10 @@ urlpatterns = [
     path('ws/product-list/<slug:name>',views.products_in_category_ws),
     path('ws/product-detail/<slug:slug>',views.product_detail_ws),
     path('ws/categories',views.categories_ws),
+    path('ws/login',views.login_ws),
+    path('ws/register',views.register_ws),
+    path('ws/logout',auth_views.logout),
+    path('ws/username',views.username_ws)
 
 ]
 
